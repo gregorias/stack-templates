@@ -38,6 +38,8 @@ dependencies:
 
 library:
   source-dirs: src
+  dependencies:
+  - relude
 
 executables:
   {{name}}-exe:
@@ -49,6 +51,7 @@ executables:
     - -with-rtsopts=-N
     dependencies:
     - {{name}}
+    - relude
 
 tests:
   {{name}}-test:
@@ -60,6 +63,7 @@ tests:
     - -with-rtsopts=-N
     dependencies:
     - {{name}}
+    - relude
 
 {-# START_FILE Setup.hs #-}
 import Distribution.Simple
@@ -82,7 +86,7 @@ someFunc :: IO ()
 someFunc = putStrLn "someFunc"
 
 {-# START_FILE app/Main.hs #-}
-module Main where
+module Main (main) where
 
 import Lib
 import Relude

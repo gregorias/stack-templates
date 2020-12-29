@@ -61,6 +61,7 @@ tests:
     - -threaded
     - -rtsopts
     - -with-rtsopts=-N
+    - -main-is Spec
     dependencies:
     - {{name}}
     - relude
@@ -70,6 +71,8 @@ import Distribution.Simple
 main = defaultMain
 
 {-# START_FILE test/Spec.hs #-}
+module Spec (main) where
+
 import Relude
 
 main :: IO ()
@@ -862,3 +865,12 @@ function run-unit-tests {
 
 format-files
 run-unit-tests
+{-# START_FILE weeder.dhall #-}
+{ roots =
+    [
+    "^Main.main$"
+    , "^Spec.main$"
+    , "^Paths_.*"
+    ]
+, type-class-roots = True
+}

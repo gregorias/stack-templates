@@ -42,7 +42,7 @@ library:
   - relude
 
 executables:
-  {{name}}-exe:
+  {{name}}:
     main:                Main.hs
     source-dirs:         app
     ghc-options:
@@ -782,10 +782,10 @@ cradle:
       component: "{{name}}:lib"
 
     - path: "./app/Main.hs"
-      component: "{{name}}:exe:{{name}}-exe"
+      component: "{{name}}:exe:{{name}}"
 
     - path: "./app/Paths_hledupt.hs"
-      component: "{{name}}:exe:{{name}}-exe"
+      component: "{{name}}:exe:{{name}}"
 
     - path: "./test"
       component: "{{name}}:test:{{name}}-test"

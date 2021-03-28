@@ -38,6 +38,8 @@ dependencies:
 
 library:
   source-dirs: src
+  ghc-options:
+  - -Wunused-packages
   dependencies:
   - relude
 
@@ -49,6 +51,7 @@ executables:
     - -threaded
     - -rtsopts
     - -with-rtsopts=-N
+    - -Wunused-packages
     dependencies:
     - {{name}}
     - relude
@@ -62,6 +65,7 @@ tests:
     - -rtsopts
     - -with-rtsopts=-N
     - -main-is Spec
+    - -Wunused-packages
     dependencies:
     - {{name}}
     - relude

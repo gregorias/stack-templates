@@ -871,8 +871,16 @@ function run-unit-tests {
   fi
 }
 
+function run-weeder {
+  if ! weeder; then
+    echo 'Pre-commit failed, because weeder detected some dead code.'
+    exit 1
+  fi
+}
+
 format-files
 run-unit-tests
+run-weeder
 {-# START_FILE weeder.dhall #-}
 { roots =
     [

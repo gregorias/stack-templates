@@ -797,7 +797,7 @@ cradle:
 
 function format-file {
   stack exec hlint "$1" -- --refactor --refactor-options="-i"
-  fourmolu -i "$1"
+  fourmolu -o "-XTypeApplications" -i "$1"
 }
 export -f format-file
 
@@ -846,7 +846,13 @@ function format-files {
   # changes.
   echo 'Formatting staged Haskell files . . .'
 
-  printf "%s\0" "${HASKELL_FILES[@]}" | xargs -0 -n1 -P8 -I {} bash -c 'format-file "{}"'
+  printf "%s\0" "${HASKELL_FILES[@]}" \
+    | xargs -0 -n1 -P8 -I {} bash -c 'format-file "{}"' 2>/dev/null
+
+  if [[ $? -ne 0 ]]; then
+    echo 'File formatting has failed. Please debug.'
+    exit 1
+  fi
 
   CHANGED_FILES=()
   while IFS=$'\n' read -r line; do CHANGED_FILES+=("$line"); done \

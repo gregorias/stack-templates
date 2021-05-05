@@ -767,6 +767,7 @@ For more information on this, and how to apply and follow the GNU AGPL, see
 {-# START_FILE .gitignore #-}
 .stack-work/
 *~
+*.hie
 {-# START_FILE fourmolu.yaml #-}
 indentation: 2
 comma-style: leading # for lists, tuples etc. - can also be 'trailing'

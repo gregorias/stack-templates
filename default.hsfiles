@@ -22,7 +22,9 @@ description:         Please see the README on GitHub at <https://github.com/{{gi
 # Some defaults recommended by https://kowainik.github.io/posts/2019-02-06-style-guide#default-extensions
 # Also use Relude
 default-extensions:
+  DataKinds
   DerivingStrategies
+  GADTs
   GeneralisedNewtypeDeriving
   InstanceSigs
   LambdaCase

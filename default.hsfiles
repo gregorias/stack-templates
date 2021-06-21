@@ -36,6 +36,7 @@ default-extensions:
   TypeApplications
   UnicodeSyntax
   QuasiQuotes
+  OverloadedLabels
   OverloadedLists
   OverloadedStrings
 

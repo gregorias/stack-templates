@@ -24,6 +24,7 @@ description:         Please see the README on GitHub at <https://github.com/{{gi
 default-extensions:
   DataKinds
   DerivingStrategies
+  DerivingVia
   GADTs
   GeneralisedNewtypeDeriving
   InstanceSigs
@@ -32,6 +33,7 @@ default-extensions:
   NoImplicitPrelude
   NumericUnderscores
   ScopedTypeVariables
+  StandaloneDeriving
   TupleSections
   TypeApplications
   TypeFamilies

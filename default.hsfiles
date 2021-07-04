@@ -23,7 +23,11 @@ description:         Please see the README on GitHub at <https://github.com/{{gi
 # Also use Relude
 default-extensions:
   DataKinds
+  DeriveDataTypeable
+  DeriveFoldable
+  DeriveFunctor
   DeriveGeneric
+  DeriveTraversable
   DerivingStrategies
   DerivingVia
   GADTs
@@ -43,6 +47,7 @@ default-extensions:
   OverloadedLabels
   OverloadedLists
   OverloadedStrings
+  ViewPatterns
 
 dependencies:
 - base >= 4.13 && < 5

@@ -31,6 +31,7 @@ default-extensions:
   DeriveTraversable
   DerivingStrategies
   DerivingVia
+  FlexibleInstances
   FunctionalDependencies
   GADTs
   GeneralisedNewtypeDeriving
@@ -45,6 +46,7 @@ default-extensions:
   TupleSections
   TypeApplications
   TypeFamilies
+  TypeOperators
   UnicodeSyntax
   QuasiQuotes
   OverloadedLabels

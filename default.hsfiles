@@ -41,6 +41,10 @@ default-extensions:
   MultiWayIf
   NoImplicitPrelude
   NumericUnderscores
+  OverloadedLabels
+  OverloadedLists
+  OverloadedStrings
+  QuasiQuotes
   ScopedTypeVariables
   StandaloneDeriving
   TupleSections
@@ -48,10 +52,6 @@ default-extensions:
   TypeFamilies
   TypeOperators
   UnicodeSyntax
-  QuasiQuotes
-  OverloadedLabels
-  OverloadedLists
-  OverloadedStrings
   ViewPatterns
 
 dependencies:

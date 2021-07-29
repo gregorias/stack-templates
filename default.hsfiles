@@ -63,7 +63,6 @@ dependencies:
 # no-type-defaults, this is dangerous, but in terms of convenience it's so
 # useful to use ExtendedDefaultRules that I keep it.
 ghc-options:
-  - -Werror
   - -Wall
   - -Wcompat
   - -Wmissing-deriving-strategies
@@ -903,7 +902,7 @@ function format-files {
 }
 
 function run-unit-tests {
-  if ! stack test --ghc-options "-j7"; then
+  if ! stack test --ghc-options "-j7 -Werror"; then
     echo 'Pre-commit failed, because unit tests failed.'
     exit 1
   fi
@@ -917,6 +916,7 @@ function run-weeder {
 }
 
 format-files
+stack clean
 run-unit-tests
 run-weeder
 {-# START_FILE weeder.dhall #-}

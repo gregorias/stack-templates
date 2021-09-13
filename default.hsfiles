@@ -106,6 +106,7 @@ tests:
 
 {-# START_FILE Setup.hs #-}
 import Distribution.Simple
+
 main = defaultMain
 
 {-# START_FILE test/Main.hs #-}

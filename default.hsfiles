@@ -91,6 +91,10 @@ executables:
     - -Wunused-packages
     dependencies:
     - {{name}}
+    # Fix https://stackoverflow.com/questions/67519851/multiple-files-use-the-same-module-name
+    when:
+    - condition: false
+      other-modules: Paths_{{name}}
 
 tests:
   {{name}}-test:

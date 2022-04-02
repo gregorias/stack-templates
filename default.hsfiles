@@ -846,9 +846,8 @@ cradle:
 
     - path: "./test"
       component: "{{name}}:test:{{name}}-test"
-{-# START_FILE .git/hooks/pre-commit #-}
+{-# START_FILE .lefthook/pre-commit/format-changed-hs-files.bash #-}
 #!/usr/bin/env bash
-# Git pre-commit hook
 
 function format-file {
   stack exec hlint "$1" -- --refactor --refactor-options="-i"
@@ -919,24 +918,7 @@ function format-files {
   fi
 }
 
-function run-unit-tests {
-  if ! stack test --ghc-options "-j7 -Werror"; then
-    echo 'Pre-commit failed, because unit tests failed.'
-    exit 1
-  fi
-}
-
-function run-weeder {
-  if ! weeder; then
-    echo 'Pre-commit failed, because weeder detected some dead code.'
-    exit 1
-  fi
-}
-
 format-files
-stack clean
-run-unit-tests
-run-weeder
 {-# START_FILE weeder.dhall #-}
 { roots =
     [
@@ -946,6 +928,13 @@ run-weeder
 , type-class-roots = True
 }
 {-# START_FILE lefthook.yml #-}
+pre-commit:
+  scripts:
+    "format-changed-hs-files.bash":
+      runner: bash
+  commands:
+    unit-tests:
+      run: "stack test --ghc-options '-Werror'"
 commit-msg:
   commands:
     commitlint:

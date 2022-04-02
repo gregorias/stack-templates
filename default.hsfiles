@@ -144,6 +144,18 @@ main = someFunc
 {-# START_FILE README.md #-}
 # {{name}}
 
+## Development
+
+### Dev environment setup
+
+Set up npm:
+
+    npm install
+
+Install lefthook:
+
+    lefthook install
+
 {-# START_FILE LICENSE #-}
                     GNU AFFERO GENERAL PUBLIC LICENSE
                        Version 3, 19 November 2007
@@ -932,4 +944,19 @@ run-weeder
     , "^Paths_.*"
     ]
 , type-class-roots = True
+}
+{-# START_FILE lefthook.yml #-}
+commit-msg:
+  commands:
+    commitlint:
+      run: "commitlint --edit={1}"
+{-# START_FILE package.json #-}
+{
+  "devDependencies": {
+    "@commitlint/config-conventional": "^16.2.1"
+  }
+}
+{-# START_FILE commitlint.config.js #-}
+module.exports = {
+    extends: ["@commitlint/config-conventional"],
 }

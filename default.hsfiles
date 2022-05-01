@@ -146,15 +146,21 @@ main = someFunc
 
 ## Development
 
+This section is intended for developers. It describes development related matters.
+
 ### Dev environment setup
 
-Set up npm:
+1. To install some development tools (commitlint), set up npm:
 
-    npm install
+   ```shell
+   npm install
+   ```
 
-Install lefthook:
+2. To setup Git hooks, install lefthook:
 
-    lefthook install
+   ```shell
+   lefthook install
+   ```
 
 {-# START_FILE LICENSE #-}
                     GNU AFFERO GENERAL PUBLIC LICENSE
@@ -823,6 +829,8 @@ For more information on this, and how to apply and follow the GNU AGPL, see
 .stack-work/
 *~
 *.hie
+
+node_modules
 {-# START_FILE fourmolu.yaml #-}
 indentation: 2
 comma-style: leading # for lists, tuples etc. - can also be 'trailing'

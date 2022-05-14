@@ -20,7 +20,6 @@ extra-source-files:
 description:         Please see the README on GitHub at <https://github.com/{{github-username}}{{^github-username}}githubuser{{/github-username}}/{{name}}#readme>
 
 # Some defaults recommended by https://kowainik.github.io/posts/2019-02-06-style-guide#default-extensions
-# Also use Relude
 default-extensions:
   BangPatterns
   DataKinds
@@ -41,7 +40,6 @@ default-extensions:
   LambdaCase
   MultiParamTypeClasses
   MultiWayIf
-  NoImplicitPrelude
   NumericUnderscores
   OverloadedLabels
   OverloadedLists
@@ -59,7 +57,6 @@ default-extensions:
 
 dependencies:
 - base >= 4.13 && < 5
-- relude
 
 # no-type-defaults, this is dangerous, but in terms of convenience it's so
 # useful to use ExtendedDefaultRules that I keep it.
@@ -117,8 +114,6 @@ main = defaultMain
 {-# START_FILE test/Main.hs #-}
 module Main (main) where
 
-import Relude
-
 main :: IO ()
 main = putStrLn "Test suite not yet implemented"
 
@@ -127,8 +122,6 @@ module Lib
     ( someFunc
     ) where
 
-import Relude
-
 someFunc :: IO ()
 someFunc = putStrLn "someFunc"
 
@@ -136,7 +129,6 @@ someFunc = putStrLn "someFunc"
 module Main (main) where
 
 import Lib
-import Relude
 
 main :: IO ()
 main = someFunc

@@ -45,6 +45,7 @@ default-extensions:
   OverloadedLists
   OverloadedStrings
   PatternSynonyms
+  PolyKinds
   QuasiQuotes
   ScopedTypeVariables
   StandaloneDeriving

@@ -139,12 +139,13 @@ main = someFunc
 
 ## Development
 
-This section is intended for developers. It describes development related matters.
+This section is intended for developers. It describes development related
+matters.
 
 ### Dev environment setup
 
-
-1. Install hlint and fourmolu, which are used in pre-commits (I do it from my home directory):
+1. Install hlint and fourmolu, which are used in pre-commits (I do it from my
+   home directory):
 
    ```shell
    stack install hlint fourmolu

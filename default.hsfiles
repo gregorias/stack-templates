@@ -119,9 +119,9 @@ main :: IO ()
 main = putStrLn "Test suite not yet implemented"
 
 {-# START_FILE src/Lib.hs #-}
-module Lib
-    ( someFunc
-    ) where
+module Lib (
+  someFunc
+) where
 
 someFunc :: IO ()
 someFunc = putStrLn "someFunc"

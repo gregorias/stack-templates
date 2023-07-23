@@ -5,7 +5,7 @@ github:              "{{github-username}}{{^github-username}}githubuser{{/github
 license:             AGPL-3
 author:              "{{author-name}}{{^author-name}}Author name here{{/author-name}}"
 maintainer:          "{{author-email}}{{^author-email}}example@example.com{{/author-email}}"
-copyright:           "{{copyright}}{{^copyright}}{{year}}{{^year}}2021{{/year}} {{author-name}}{{^author-name}}Author name here{{/author-name}}{{/copyright}}"
+copyright:           "{{copyright}}{{^copyright}}{{year}}{{^year}}2023{{/year}} {{author-name}}{{^author-name}}Author name here{{/author-name}}{{/copyright}}"
 
 extra-source-files:
 - README.md
@@ -36,10 +36,12 @@ default-extensions:
   FunctionalDependencies
   GADTs
   GeneralisedNewtypeDeriving
+  ImportQualifiedPost
   InstanceSigs
   LambdaCase
   MultiParamTypeClasses
   MultiWayIf
+  NoImplicitPrelude
   NumericUnderscores
   OverloadedLabels
   OverloadedLists
@@ -63,6 +65,7 @@ dependencies:
 # useful to use ExtendedDefaultRules that I keep it.
 ghc-options:
   - -Wall
+  - -Werror
   - -Wcompat
   - -Wmissing-deriving-strategies
   - -Widentities
@@ -151,13 +154,7 @@ matters.
    stack install hlint fourmolu
    ```
 
-2. To install some development tools (commitlint), set up npm:
-
-   ```shell
-   npm install
-   ```
-
-3. To setup Git hooks, install lefthook:
+2. To setup Git hooks, install lefthook:
 
    ```shell
    lefthook install
@@ -855,79 +852,6 @@ cradle:
 
     - path: "./test"
       component: "{{name}}:test:{{name}}-test"
-{-# START_FILE .lefthook/pre-commit/format-changed-hs-files.bash #-}
-#!/usr/bin/env bash
-
-function format-file {
-  stack exec hlint "$1" -- --refactor --refactor-options="-i"
-  fourmolu -o "-XTypeApplications" -i "$1"
-}
-export -f format-file
-
-function format-files {
-  ################################################################################
-  # Check staged Haskell files for formatting issues with:
-  #
-  # * hlint
-  # * fourmolu
-  ################################################################################
-
-  # Find all staged Haskell files, and exit early if there aren't any.
-  HASKELL_FILES=()
-  while IFS=$'\n' read -r line; do HASKELL_FILES+=("$line"); done \
-    < <(git diff --name-only --cached --diff-filter=AM | grep --color=never '.hs$')
-  if [ ${#HASKELL_FILES[@]} -eq 0 ]; then
-    return 0
-  fi
-
-  if ! stack exec hlint -- --version 2>/dev/null 2>&1; then
-    echo 'hlint not on path; can not format. Please install hlint:'
-    echo '    stack install hlint'
-    exit 2
-  fi
-
-
-  if ! fourmolu --version 2>/dev/null 2>&1; then
-    echo 'fourmolu not on path; can not format. Please install fourmolu.'
-    exit 2
-  fi
-
-
-  # Check for unstaged changes to files in the index.
-  CHANGED_FILES=()
-  while IFS=$'\n' read -r line; do CHANGED_FILES+=("$line"); done \
-    < <(git diff --name-only "${HASKELL_FILES[@]}")
-  if [ ${#CHANGED_FILES[@]} -gt 0 ]; then
-    echo 'You have unstaged changes to some files in your commit; skipping '
-    echo 'auto-format. Please stage, stash, or revert these changes. You may '
-    echo 'find `git stash -k` helpful here.'
-    echo 'Files with unstaged changes:' "${CHANGED_FILES[@]}"
-    exit 1
-  fi
-
-  # Format all staged files, then exit with an error code if any have uncommitted
-  # changes.
-  echo 'Formatting staged Haskell files . . .'
-
-  printf "%s\0" "${HASKELL_FILES[@]}" \
-    | xargs -0 -n1 -P8 -I {} bash -c 'format-file "{}"' 2>/dev/null
-
-  if [[ $? -ne 0 ]]; then
-    echo 'File formatting has failed. Please debug.'
-    exit 1
-  fi
-
-  CHANGED_FILES=()
-  while IFS=$'\n' read -r line; do CHANGED_FILES+=("$line"); done \
-    < <(git diff --name-only "${HASKELL_FILES[@]}")
-  if [ ${#CHANGED_FILES[@]} -gt 0 ]; then
-    echo 'Reformatted staged files. Please review and stage the changes.'
-    echo 'Files updated: ' "${CHANGED_FILES[@]}"
-    exit 1
-  fi
-}
-
-format-files
 {-# START_FILE weeder.dhall #-}
 { roots =
     [
@@ -938,23 +862,26 @@ format-files
 }
 {-# START_FILE lefthook.yml #-}
 pre-commit:
-  scripts:
-    "format-changed-hs-files.bash":
-      runner: bash
   commands:
+    hlint:
+      tags: lint
+      glob: "*.hs"
+      run: stack exec hlint {staged_files} -- -X QuasiQuotes
+    fourmolu:
+      tags: style
+      glob: "*.hs"
+      run: fourmolu -o "-XTypeApplications" -i {staged_files} && git add {staged_files}
+    markdownlint:
+      tags: documentation style
+      files: git diff --name-only --cached --diff-filter=AM
+      glob: '*.md'
+      run: markdownlint {files}
     unit-tests:
       run: "stack test --ghc-options '-Werror'"
 commit-msg:
   commands:
     commitlint:
       run: "commitlint --edit={1}"
-{-# START_FILE package.json #-}
-{
-  "devDependencies": {
-    "@commitlint/config-conventional": "^17.1.0",
-    "@commitlint/cli": "^17.1.0"
-  }
-}
 {-# START_FILE commitlint.config.js #-}
 module.exports = {
     extends: ["@commitlint/config-conventional"],

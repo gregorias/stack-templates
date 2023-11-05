@@ -29,6 +29,7 @@ default-extensions:
   FunctionalDependencies
   GADTs
   LambdaCase
+  MultiWayIf
   OverloadedLabels
   OverloadedStrings
   TypeFamilies

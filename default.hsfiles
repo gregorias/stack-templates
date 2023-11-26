@@ -820,20 +820,6 @@ diff-friendly-import-export: true # 'false' uses Ormolu-style lists
 respectful: false # don't be too opinionated about newlines etc.
 haddock-style: single-line # '--' vs. '{-'
 newlines-between-decls: 1 # number of newlines between top-level declarations
-{-# START_FILE hie.yaml #-}
-cradle:
-  stack:
-    - path: "./src"
-      component: "{{name}}:lib"
-
-    - path: "./app/Main.hs"
-      component: "{{name}}:exe:{{name}}"
-
-    - path: "./app/Paths_hledupt.hs"
-      component: "{{name}}:exe:{{name}}"
-
-    - path: "./test"
-      component: "{{name}}:test:{{name}}-test"
 {-# START_FILE lefthook.yml #-}
 pre-commit:
   commands:

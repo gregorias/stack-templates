@@ -834,14 +834,6 @@ cradle:
 
     - path: "./test"
       component: "{{name}}:test:{{name}}-test"
-{-# START_FILE weeder.dhall #-}
-{ roots =
-    [
-    "^Main.main$"
-    , "^Paths_.*"
-    ]
-, type-class-roots = True
-}
 {-# START_FILE lefthook.yml #-}
 pre-commit:
   commands:

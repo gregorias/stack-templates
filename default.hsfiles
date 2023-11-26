@@ -122,25 +122,30 @@ main = someFunc
 {-# START_FILE README.md #-}
 # {{name}}
 
-## Development
+{-# START_FILE DEV.md #-}
+# {{name}} Development
 
-This section is intended for developers. It describes development related
-matters.
+This README is intended for developers.
 
-### Dev environment setup
+## Dev environment setup
 
-1. Install hlint and fourmolu, which are used in pre-commits (I do it from my
-   home directory):
+This project requires [Stack] and other tools listed in `lefthook.yml`.
 
-   ```shell
-   stack install hlint fourmolu
-   ```
-
-2. To setup Git hooks, install lefthook:
+1. To setup Git hooks, install lefthook:
 
    ```shell
    lefthook install
    ```
+
+## Building
+
+To build the binary, run
+
+```bash
+stack build
+```
+
+[Stack]: https://docs.haskellstack.org/en/stable/
 
 {-# START_FILE LICENSE #-}
                     GNU AFFERO GENERAL PUBLIC LICENSE

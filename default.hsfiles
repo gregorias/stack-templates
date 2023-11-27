@@ -852,6 +852,7 @@ pre-commit:
       glob: "*.md"
       run: markdownlint {files}
     unit-tests:
+      tags: test
       run: "stack test --ghc-options '-Werror'"
 commit-msg:
   commands:

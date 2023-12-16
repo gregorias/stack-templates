@@ -30,6 +30,8 @@ default-extensions:
   - GADTs
   - LambdaCase
   - MultiWayIf
+  # Prefer using the safer option like Relude.
+  - NoImplicitPrelude
   - OverloadedLabels
   - OverloadedRecordDot
   - OverloadedStrings

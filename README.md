@@ -1,3 +1,5 @@
+# Gregorias’ Haskell Stack Template
+
 A [Haskell Stack template](https://github.com/commercialhaskell/stack-templates).
 
 To create a new Haskell project, run

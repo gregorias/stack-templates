@@ -39,7 +39,7 @@ default-extensions:
   - TypeOperators
 
 dependencies:
-- base >= 4.17 && < 5
+- relude
 
 # no-type-defaults, this is dangerous, but in terms of convenience it's so
 # useful to use ExtendedDefaultRules that I keep it.
@@ -65,7 +65,9 @@ ghc-options:
 library:
   source-dirs: src
   ghc-options:
-  - -Wunused-packages
+    - -Wunused-packages
+  dependencies:
+    - base >= 4.17 && < 5
 
 executables:
   {{name}}:
@@ -98,6 +100,8 @@ tests:
 {-# START_FILE test/Main.hs #-}
 module Main (main) where
 
+import Relude
+
 main :: IO ()
 main = putStrLn "Test suite not yet implemented"
 
@@ -106,6 +110,8 @@ module Lib (
   someFunc
 ) where
 
+import Relude
+
 someFunc :: IO ()
 someFunc = putStrLn "someFunc"
 
@@ -113,6 +119,7 @@ someFunc = putStrLn "someFunc"
 module Main (main) where
 
 import Lib
+import Relude
 
 main :: IO ()
 main = someFunc
